@@ -1,0 +1,26 @@
+class Solution {
+    
+    public List<String> letterCombinations(String digits) {
+        List<String> list = new ArrayList<>();
+        String[] dict = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        if(digits.length() == 0) return list;
+        recurse(list, digits, dict, "", 0);
+        return list;  
+    }
+    public static void recurse(List<String> list, String digits, String[] dict, String curr, int count){
+        //base case/return case
+        if(curr.length() == digits.length()){
+            list.add(curr);
+            return;
+        }
+        
+        //which group of letters to call
+        String letters = dict[digits.charAt(count) - '0'];
+        
+        //curr string + next indexed letter and recurse
+        for(int i = 0; i < letters.length(); i++){
+            recurse(list, digits, dict, curr + String.valueOf(letters.charAt(i)), count + 1);
+        }
+        
+    }
+}
